@@ -4,14 +4,41 @@
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
 
+#define TAM 10
+#define FIG 5
+
 int main() {
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
     // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
 
-    int tabuleiro[10][10];  // matriz 10x10
+    int tabuleiro[TAM][TAM] = {0};  // matriz 10x10
     int i, j;
+    
+    int cone[5][5] = {
+    {0, 0, 1, 0, 0},
+    {0, 1, 1, 1, 0},
+    {1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1},
+    {0, 0, 0, 0, 0},
+    };
+
+    int cruz[5][5] = {
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 1, 0, 0},
+    {1, 1, 1, 1, 1},
+    {0, 1, 0, 0, 0},
+    };
+
+    int octaedro[5][5] = {
+    {0, 0, 1, 0, 0},
+    {0, 1, 1, 1, 0},
+    {1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1},
+    };
 
     // Inicializar o tabuleiro com 0 (água)
     for (i = 0; i < 10; i++) {
@@ -44,6 +71,35 @@ int main() {
         tabuleiro[i][9 - i] = 3;
     }
 
+    void imprimirMatriz(int matriz[5][5], const char* nome){
+    printf("\n%s:\n", nome);
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("%d ", matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+    imprimirMatriz(cone, "Cone");
+    imprimirMatriz(cruz, "Cruz");
+    imprimirMatriz(octaedro, "Octaedro");
+
+     void sobrepor(int destino[TAM][TAM], int figura[5][5], int lin, int col){
+        for (int i = 0; i < FIG; i++) {
+            for (int j = 0; j < FIG; j++) {
+                if (lin + i < TAM && col + j < TAM) {
+                    if (figura[i][j] == 1)
+                        destino[lin + i][col + j] = 1;
+                }
+            }
+        }
+    }
+
+    // Sobrepor as 3 figuras em posições diferentes
+    sobrepor(tabuleiro, cone, 0, 0);       // canto superior esquerdo
+    sobrepor(tabuleiro, cruz, 0, 5);       // canto superior direito
+    sobrepor(tabuleiro, octaedro, 5, 0);   // canto inferior esquerdo
+
     // Exibir o tabuleiro
     printf("Tabuleiro de Batalha Naval:\n\n");
 
@@ -53,7 +109,6 @@ int main() {
         }
         printf("\n");
     }
-
 
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
