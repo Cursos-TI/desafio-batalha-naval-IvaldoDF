@@ -19,15 +19,30 @@ int main() {
             tabuleiro[i][j] = 0;
         }
     }
-// Posicionar um navio na vertical
-    tabuleiro[6][2] = 3;
-    tabuleiro[7][2] = 3;
-    tabuleiro[8][2] = 3;
+// Posicionar um navio na vertical - nível novato
+   // tabuleiro[6][2] = 3;
+   // tabuleiro[7][2] = 3;
+   // tabuleiro[8][2] = 3;
 
-    // Posicionar um navio na horizontal
-    tabuleiro[5][4] = 3;
-    tabuleiro[5][5] = 3;
+    // Posicionar do navio 1 na horizontal
     tabuleiro[5][6] = 3;
+    tabuleiro[5][7] = 3;
+    tabuleiro[5][8] = 3;
+
+    // Posicionar do navio 2 na horizontal
+    tabuleiro[9][6] = 3;
+    tabuleiro[9][7] = 3;
+    tabuleiro[9][8] = 3;
+
+    // Navio na 1ª diagonal
+    for (i = 0; i < 7; i++) {
+        tabuleiro[i][i] = 3;
+    }
+
+    // Navio na 2ª diagonal
+    for (i = 7; i < 10; i++) {
+        tabuleiro[i][9 - i] = 3;
+    }
 
     // Exibir o tabuleiro
     printf("Tabuleiro de Batalha Naval:\n\n");
